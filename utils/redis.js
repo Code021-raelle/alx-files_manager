@@ -2,7 +2,7 @@ import redis from 'redis';
 import { promisify } from 'util';
 
 class RedisClient {
-  constructor () {
+  constructor() {
     this.client = redis.createClient();
 
     this.client.on('error', (err) => {
@@ -18,7 +18,7 @@ class RedisClient {
   * checks if the Redis client is connected
   * @returns {boolean} True if the Redis client is connected, false otherwise
   */
-  isAlive () {
+  isAlive() {
     return this.client.connected;
   }
 
@@ -27,7 +27,7 @@ class RedisClient {
   * @param {string} key - The key to look up in Redis
   * @returns {Promise<string | null>} The value associated with the key, or null
   */
-  async get (key) {
+  async get(key) {
     try {
       const value = await this.getAsync(key);
       return value;
@@ -43,7 +43,7 @@ class RedisClient {
   * @param {string | number} value - The value to set
   * @param {number} duration - The time in seconds until the key expires
   */
-  async set (key, value, duration) {
+  async set(key, value, duration) {
     try {
       await this.setAsync(key, value, 'EX', duration);
     } catch (err) {
@@ -56,7 +56,7 @@ class RedisClient {
   * @param {string} key - The key to delete in Redis
   * @returns {Promise<void>}
   */
-  async del (key) {
+  async del(key) {
     try {
       await this.delAsync(key);
     } catch (err) {
